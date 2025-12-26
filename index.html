@@ -3,32 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>인천 로컬 뮤직 스팟 추천 게임</title>
+  <title>1초 그림 Zine</title>
   <style>
     :root{
-      --bg:#f7f8fc; --card:#fff; --text:#111827; --muted:rgba(17,24,39,.65);
-      --line:rgba(17,24,39,.12); --shadow:0 18px 45px rgba(0,0,0,.10);
-      --accent:#3b82f6; --chip:#f1f5f9; --chip2:#eef2ff; --radius:18px;
+      --bg:#f7f8fc;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:rgba(15,23,42,.62);
+      --line:rgba(15,23,42,.14);
+      --shadow:0 18px 55px rgba(0,0,0,.10);
+      --accent:#3b82f6;
+      --accent2:#ec4899;
+      --good:#10b981;
+      --warn:#f59e0b;
+      --radius:18px;
     }
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(59,130,246,.16), transparent 60%),
-        radial-gradient(1000px 600px at 80% 25%, rgba(236,72,153,.12), transparent 55%),
-        var(--bg);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
       color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 18% 10%, rgba(59,130,246,.16), transparent 60%),
+        radial-gradient(1100px 650px at 85% 20%, rgba(236,72,153,.12), transparent 60%),
+        var(--bg);
       min-height:100vh;
       display:flex;
       justify-content:center;
-      align-items:flex-start;
       padding:22px;
     }
-    .wrap{ width:min(980px, 100%); display:grid; gap:14px; }
-    header{ display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap; }
+    .wrap{ width:min(1100px, 100%); display:grid; gap:14px; }
+    header{
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap:12px; flex-wrap:wrap;
+    }
     h1{ margin:0; font-size:20px; letter-spacing:.2px; }
-    .sub{ margin:0; color:var(--muted); font-size:13px; line-height:1.45; }
+    .sub{ margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
 
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
@@ -40,44 +50,27 @@
     .topbar{
       padding:14px;
       border-bottom:1px solid var(--line);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
     }
-    .stamp{
+    .pill{
       display:inline-flex; align-items:center; gap:10px;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px dashed rgba(17,24,39,.22);
+      padding:9px 12px; border-radius:999px;
+      border:1px dashed rgba(15,23,42,.24);
       background:rgba(255,255,255,.75);
       font-size:13px;
-      width:max-content;
     }
-    .stamp b{ font-weight:900; letter-spacing:.2px; }
-
+    .pill b{ font-weight:900; }
     .content{ padding:14px; display:grid; gap:14px; }
-    .controls{
-      display:grid;
-      gap:10px;
-      background:rgba(255,255,255,.85);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:12px;
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    @media (max-width: 760px){ .row{ grid-template-columns:1fr; } }
 
-    .field{ display:grid; gap:6px; }
+    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 860px){ .grid2{ grid-template-columns:1fr; } }
+
     label{ font-size:12px; color:var(--muted); }
-    select{
+    input, select{
       width:100%;
       border:1px solid var(--line);
-      background:rgba(0,0,0,.02);
+      background:rgba(15,23,42,.03);
       color:var(--text);
       padding:10px 12px;
       border-radius:14px;
@@ -87,13 +80,14 @@
     button{
       appearance:none;
       border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(17,24,39,.02));
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(15,23,42,.02));
       color:var(--text);
       padding:10px 12px;
       border-radius:14px;
       cursor:pointer;
       font-weight:850;
       transition:.15s transform, .15s background;
+      white-space:nowrap;
     }
     button:hover{ background:rgba(255,255,255,.9); }
     button:active{ transform:translateY(1px); }
@@ -101,528 +95,21 @@
       background:linear-gradient(180deg, rgba(59,130,246,.20), rgba(59,130,246,.06));
       border-color:rgba(59,130,246,.35);
     }
-    .ghost{ background:rgba(17,24,39,.03); }
+    .ghost{ background:rgba(15,23,42,.04); }
     .danger{
       background:linear-gradient(180deg, rgba(239,68,68,.16), rgba(239,68,68,.05));
       border-color:rgba(239,68,68,.28);
     }
 
-    .activityBox{
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .hint{ margin:0; color:var(--muted); font-size:13px; line-height:1.45; }
+
+    /* Play screen */
+    .playWrap{ display:grid; gap:12px; }
+    .promptBox{
       border:1px solid var(--line);
       background:#fff;
       border-radius:16px;
       padding:12px;
-      display:grid;
-      gap:10px;
-    }
-    .actTop{
-      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
-    }
-    .actHint{ color:var(--muted); font-size:12px; }
-    .chips{ display:flex; gap:8px; flex-wrap:wrap; }
-    .chipBtn{
-      border:1px solid var(--line);
-      background:var(--chip);
-      padding:8px 10px;
-      border-radius:999px;
-      font-size:13px;
-      cursor:pointer;
-      user-select:none;
-    }
-    .chipBtn.on{
-      background:var(--chip2);
-      border-color:rgba(59,130,246,.35);
-      outline:3px solid rgba(59,130,246,.14);
-    }
-
-    .status{ color:var(--muted); font-size:13px; margin:0; line-height:1.45; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width: 900px){ .grid{ grid-template-columns:1fr; } }
-
-    .stepCard{
-      border:1px solid var(--line);
-      background:#fff;
-      border-radius:16px;
-      padding:12px;
-      display:grid;
-      gap:10px;
-    }
-    .stepTop{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
-    .stepTitle{
-      margin:0; font-size:14px; letter-spacing:.1px;
-      display:flex; align-items:center; gap:8px;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:var(--chip);
-      font-size:12px;
-      color:rgba(17,24,39,.85);
-      width:max-content;
-    }
-    .badge.type{ background:var(--chip2); }
-
-    .place{ margin:0; font-size:16px; font-weight:950; letter-spacing:.1px; }
-    .note{ margin:0; color:var(--muted); font-size:13px; line-height:1.45; min-height:2.6em; }
-    .actions{ display:flex; gap:10px; flex-wrap:wrap; }
-    .small{ padding:9px 10px; border-radius:12px; font-size:13px; font-weight:850; }
-
-    .actLine{
-      border:1px dashed rgba(17,24,39,.22);
-      background:rgba(59,130,246,.06);
-      padding:10px 12px;
-      border-radius:14px;
-      font-size:13px;
-      color:rgba(17,24,39,.88);
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <header>
-      <div>
-        <h1>🎲 인천 사운드 코스 룰렛</h1>
-        <p class="sub">“밥/커피 → 음악 스팟 → 애프터” 자동 조합 + 내가 원하는 Activity로 플레이.</p>
-      </div>
-      <p class="sub">GitHub Pages 1파일 버전</p>
-    </header>
-
-    <section class="card">
-      <div class="topbar">
-        <div class="stamp">✍️ <b>Incheon Local Music Guide</b> <span style="color:var(--muted)">Course + Activities</span></div>
-      </div>
-
-      <div class="content">
-        <div class="controls">
-          <div class="row">
-            <div class="field">
-              <label>Area (선택)</label>
-              <select id="area"></select>
-            </div>
-            <div class="field">
-              <label>How many activities?</label>
-              <select id="actLimit">
-                <option value="1">1개만</option>
-                <option value="2">2개</option>
-                <option value="3" selected>3개</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="activityBox">
-            <div class="actTop">
-              <b>하고 싶은 Activity를 선택 (최대 <span id="limitLabel">3</span>개)</b>
-              <span class="actHint">선택 안 하면: 그냥 랜덤 코스</span>
-            </div>
-            <div class="chips" id="actChips"></div>
-            <div class="actions">
-              <button id="clearActs" class="ghost" type="button">활동 선택 지우기</button>
-              <button id="randomActs" class="ghost" type="button">랜덤으로 선택</button>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button id="spin" class="primary" type="button">Spin 코스 만들기</button>
-            <button id="copyCourse" class="ghost" type="button">코스 텍스트 복사</button>
-            <button id="reset" class="danger" type="button">Reset</button>
-          </div>
-
-          <p class="status" id="status">Activity를 고르고 Spin을 눌러봐.</p>
-        </div>
-
-        <div class="grid">
-          <div class="stepCard">
-            <div class="stepTop">
-              <h2 class="stepTitle">🍚 Step 1 · Warm-up</h2>
-              <span class="badge type" id="warmType">—</span>
-            </div>
-            <p class="place" id="warmName">—</p>
-            <div class="chips" id="warmChips"></div>
-            <div class="actLine" id="warmAct">Activity: —</div>
-            <p class="note" id="warmNote">—</p>
-            <div class="actions">
-              <button class="small primary" id="warmMap">네이버지도</button>
-              <button class="small ghost" id="warmReroll">이 단계만 다시</button>
-            </div>
-          </div>
-
-          <div class="stepCard">
-            <div class="stepTop">
-              <h2 class="stepTitle">🎧 Step 2 · Main</h2>
-              <span class="badge type" id="mainType">—</span>
-            </div>
-            <p class="place" id="mainName">—</p>
-            <div class="chips" id="mainChips"></div>
-            <div class="actLine" id="mainAct">Activity: —</div>
-            <p class="note" id="mainNote">—</p>
-            <div class="actions">
-              <button class="small primary" id="mainMap">네이버지도</button>
-              <button class="small ghost" id="mainReroll">이 단계만 다시</button>
-            </div>
-          </div>
-
-          <div class="stepCard">
-            <div class="stepTop">
-              <h2 class="stepTitle">🌙 Step 3 · After</h2>
-              <span class="badge type" id="afterType">—</span>
-            </div>
-            <p class="place" id="afterName">—</p>
-            <div class="chips" id="afterChips"></div>
-            <div class="actLine" id="afterAct">Activity: —</div>
-            <p class="note" id="afterNote">—</p>
-            <div class="actions">
-              <button class="small primary" id="afterMap">네이버지도</button>
-              <button class="small ghost" id="afterReroll">이 단계만 다시</button>
-            </div>
-          </div>
-        </div>
-
-        <p class="status">
-          ※ 각 스팟에 <code>activities</code>가 들어가야 “선택한 활동”과 매칭해서 추천할 수 있어요.
-        </p>
-      </div>
-    </section>
-  </div>
-
-<script>
-/**
- * 1) 활동(키워드) 사전: id + label(표시 텍스트)
- * 2) 각 스팟에 activities: ["pick-record","write-1line"...] 같이 id를 넣기
- */
-const ACTIVITIES = [
-  { id:"pick-record",   label:"🎵 레코드/음악 한 장 고르기" },
-  { id:"listen-1song",  label:"🎧 한 곡 집중 듣기" },
-  { id:"ask-reco",      label:"🗣️ 사장님/스태프 추천 받기" },
-  { id:"write-1line",   label:"✍️ 한 줄 메모(가사/느낌)" },
-  { id:"photo-cover",   label:"📸 커버/간판 사진 1장" },
-  { id:"coffee-slow",   label:"☕ 커피 천천히 마시기" },
-  { id:"walk-15",       label:"🚶 15분 산책하기" },
-  { id:"send-to-friend",label:"💬 친구에게 추천 한 줄" },
-  { id:"sticker-stamp", label:"🧾 티켓/스티커/영수증 모으기" },
-];
-
-/**
- * ✅ 스팟 데이터: type로 Step 분류, activities로 행동 매칭
- * type 추천:
- * warm: "밥" | "커피"
- * main: "LP바" | "레코드샵" | "라이브" | "음악공간"
- * after:"산책" | "야경" | "디저트" | "술"
- */
-const SPOTS = [
-  // Warm-up
-  { id:"w1", name:"예시) 부평 국밥집", area:"부평", type:"밥", tags:["든든","점심"], note:"따뜻하게 시작.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["write-1line","send-to-friend"] },
-  { id:"w2", name:"예시) 배다리 커피", area:"배다리", type:"커피", tags:["커피","산책"], note:"첫 잔으로 템포 세팅.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["coffee-slow","write-1line","photo-cover"] },
-
-  // Main
-  { id:"m1", name:"예시) 탄트라", area:"동인천", type:"LP바", tags:["LP","밤"], note:"좋은 소리로 메인 시작.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["listen-1song","pick-record","write-1line"] },
-  { id:"m2", name:"예시) 형제레코드", area:"동인천", type:"레코드샵", tags:["digging","수집"], note:"한 장 고르면 하루가 정리됨.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["pick-record","ask-reco","photo-cover"] },
-  { id:"m3", name:"예시) 라이브 공간", area:"부평", type:"라이브", tags:["공연","현장"], note:"오늘의 사운드를 몸으로.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["listen-1song","write-1line","sticker-stamp"] },
-
-  // After
-  { id:"a1", name:"예시) 바닷바람 산책", area:"월미/바다", type:"산책", tags:["걷기","바람"], note:"귀를 식히는 시간.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["walk-15","write-1line","photo-cover"] },
-  { id:"a2", name:"예시) 디저트 가게", area:"배다리", type:"디저트", tags:["달달","마무리"], note:"엔딩 크레딧 한 입.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["coffee-slow","send-to-friend","photo-cover"] },
-  { id:"a3", name:"예시) 작은 바", area:"동인천", type:"술", tags:["한잔","밤"], note:"오늘 들은 음악 얘기.", naverMapUrl:"https://naver.me/REPLACE",
-    activities:["ask-reco","write-1line","send-to-friend"] },
-];
-
-// ===== DOM =====
-const areaEl = document.getElementById("area");
-const actLimitEl = document.getElementById("actLimit");
-const limitLabel = document.getElementById("limitLabel");
-const actChipsEl = document.getElementById("actChips");
-const clearActsBtn = document.getElementById("clearActs");
-const randomActsBtn = document.getElementById("randomActs");
-
-const spinBtn = document.getElementById("spin");
-const copyBtn = document.getElementById("copyCourse");
-const resetBtn = document.getElementById("reset");
-const statusEl = document.getElementById("status");
-
-const warmTypeEl = document.getElementById("warmType");
-const warmNameEl = document.getElementById("warmName");
-const warmChipsEl = document.getElementById("warmChips");
-const warmActEl  = document.getElementById("warmAct");
-const warmNoteEl = document.getElementById("warmNote");
-const warmMapBtn = document.getElementById("warmMap");
-const warmRerollBtn = document.getElementById("warmReroll");
-
-const mainTypeEl = document.getElementById("mainType");
-const mainNameEl = document.getElementById("mainName");
-const mainChipsEl = document.getElementById("mainChips");
-const mainActEl  = document.getElementById("mainAct");
-const mainNoteEl = document.getElementById("mainNote");
-const mainMapBtn = document.getElementById("mainMap");
-const mainRerollBtn = document.getElementById("mainReroll");
-
-const afterTypeEl = document.getElementById("afterType");
-const afterNameEl = document.getElementById("afterName");
-const afterChipsEl = document.getElementById("afterChips");
-const afterActEl  = document.getElementById("afterAct");
-const afterNoteEl = document.getElementById("afterNote");
-const afterMapBtn = document.getElementById("afterMap");
-const afterRerollBtn = document.getElementById("afterReroll");
-
-// ===== Utils =====
-const uniq = (arr) => [...new Set(arr)];
-const pickRandom = (arr) => arr[(Math.random() * arr.length) | 0];
-
-function safeOpen(url){
-  if(url && url.startsWith("http")) window.open(url, "_blank", "noopener,noreferrer");
-  else alert("naverMapUrl이 비어있어요. SPOTS 데이터에 네이버지도 링크를 넣어줘!");
-}
-
-function renderBadgeChips(el, spot){
-  el.innerHTML = "";
-  const chips = [];
-  if(spot.area) chips.push(`📍 ${spot.area}`);
-  (spot.tags || []).slice(0,4).forEach(t => chips.push(`#${t}`));
-  chips.forEach(t => {
-    const s = document.createElement("span");
-    s.className = "badge";
-    s.textContent = t;
-    el.appendChild(s);
-  });
-}
-
-function actLabel(id){
-  return (ACTIVITIES.find(a => a.id === id)?.label) || id;
-}
-
-function intersectCount(aIds, bIds){
-  if(!aIds?.length || !bIds?.length) return 0;
-  const setB = new Set(bIds);
-  let c = 0;
-  for(const x of aIds) if(setB.has(x)) c++;
-  return c;
-}
-
-function pickActivityForSpot(spot, selectedActs){
-  const spotActs = spot.activities || [];
-  if(spotActs.length === 0) return null;
-
-  if(selectedActs.size > 0){
-    const inter = spotActs.filter(id => selectedActs.has(id));
-    if(inter.length) return pickRandom(inter);
-  }
-  return pickRandom(spotActs);
-}
-
-// ===== Activity selection UI =====
-let selectedActs = new Set();
-
-function renderActChips(){
-  actChipsEl.innerHTML = "";
-  for(const a of ACTIVITIES){
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "chipBtn" + (selectedActs.has(a.id) ? " on" : "");
-    btn.textContent = a.label;
-    btn.addEventListener("click", () => toggleAct(a.id));
-    actChipsEl.appendChild(btn);
-  }
-}
-
-function toggleAct(id){
-  const limit = Number(actLimitEl.value || 3);
-  if(selectedActs.has(id)){
-    selectedActs.delete(id);
-    statusEl.textContent = `Activity 선택: ${selectedActs.size}/${limit}`;
-  }else{
-    if(selectedActs.size >= limit){
-      statusEl.textContent = `최대 ${limit}개까지 선택 가능! (지금 ${selectedActs.size}개)`;
-      return;
-    }
-    selectedActs.add(id);
-    statusEl.textContent = `Activity 선택: ${selectedActs.size}/${limit}`;
-  }
-  renderActChips();
-}
-
-function clearActs(){
-  selectedActs = new Set();
-  statusEl.textContent = "Activity 선택을 지웠어. (완전 랜덤 가능)";
-  renderActChips();
-}
-
-function randomActs(){
-  clearActs();
-  const limit = Number(actLimitEl.value || 3);
-  const ids = ACTIVITIES.map(a=>a.id);
-  // shuffle-ish
-  for(let i=ids.length-1;i>0;i--){
-    const j = (Math.random()*(i+1))|0;
-    [ids[i],ids[j]]=[ids[j],ids[i]];
-  }
-  ids.slice(0,limit).forEach(id=>selectedActs.add(id));
-  statusEl.textContent = `랜덤 선택 완료: ${selectedActs.size}/${limit}`;
-  renderActChips();
-}
-
-// ===== Area options =====
-function buildAreaOptions(){
-  const areas = uniq(SPOTS.map(s=>s.area).filter(Boolean)).sort((a,b)=>a.localeCompare(b,'ko'));
-  areaEl.innerHTML = `<option value="">All areas</option>` + areas.map(a=>`<option value="${a}">${a}</option>`).join("");
-}
-
-// ===== Step pools =====
-function getPoolByStep(step){
-  const area = areaEl.value;
-  const base = area ? SPOTS.filter(s => s.area === area) : SPOTS.slice();
-
-  const warmTypes = new Set(["밥","커피"]);
-  const mainTypes = new Set(["LP바","레코드샵","라이브","음악공간"]);
-  const afterTypes = new Set(["산책","야경","디저트","술"]);
-
-  if(step === "warm")  return base.filter(s => warmTypes.has(s.type));
-  if(step === "main")  return base.filter(s => mainTypes.has(s.type));
-  if(step === "after") return base.filter(s => afterTypes.has(s.type));
-  return [];
-}
-
-function pickSpot(step, usedIds){
-  const pool0 = getPoolByStep(step).filter(s => !usedIds.has(s.id));
-  const pool = pool0.length ? pool0 : getPoolByStep(step); // fallback allow duplicates if needed
-  if(pool.length === 0) return null;
-
-  // activity-based scoring: selectedActs와 겹칠수록 우선
-  const sel = [...selectedActs];
-  if(sel.length === 0) return pickRandom(pool);
-
-  const scored = pool.map(s => ({ s, score: intersectCount(sel, s.activities || []) }));
-  const max = Math.max(...scored.map(x=>x.score));
-  const best = scored.filter(x => x.score === max).map(x=>x.s);
-
-  // max==0이면 결국 랜덤(선택활동이 스팟에 없을 때)
-  return pickRandom(best);
-}
-
-// ===== Render cards =====
-function setCard(step, spot){
-  const act = spot ? pickActivityForSpot(spot, selectedActs) : null;
-  const actText = act ? actLabel(act) : "—";
-
-  if(step === "warm"){
-    warmTypeEl.textContent = spot ? spot.type : "—";
-    warmNameEl.textContent = spot ? spot.name : "—";
-    warmNoteEl.textContent = spot ? (spot.note || "") : "—";
-    renderBadgeChips(warmChipsEl, spot || {});
-    warmActEl.textContent = `Activity: ${actText}`;
-    warmMapBtn.onclick = () => safeOpen(spot?.naverMapUrl);
-  }
-  if(step === "main"){
-    mainTypeEl.textContent = spot ? spot.type : "—";
-    mainNameEl.textContent = spot ? spot.name : "—";
-    mainNoteEl.textContent = spot ? (spot.note || "") : "—";
-    renderBadgeChips(mainChipsEl, spot || {});
-    mainActEl.textContent = `Activity: ${actText}`;
-    mainMapBtn.onclick = () => safeOpen(spot?.naverMapUrl);
-  }
-  if(step === "after"){
-    afterTypeEl.textContent = spot ? spot.type : "—";
-    afterNameEl.textContent = spot ? spot.name : "—";
-    afterNoteEl.textContent = spot ? (spot.note || "") : "—";
-    renderBadgeChips(afterChipsEl, spot || {});
-    afterActEl.textContent = `Activity: ${actText}`;
-    afterMapBtn.onclick = () => safeOpen(spot?.naverMapUrl);
-  }
-}
-
-let current = { warm:null, main:null, after:null };
-
-function spinAll(){
-  const used = new Set();
-  const warm = pickSpot("warm", used); if(warm) used.add(warm.id);
-  const main = pickSpot("main", used); if(main) used.add(main.id);
-  const after = pickSpot("after", used); if(after) used.add(after.id);
-
-  current = { warm, main, after };
-  setCard("warm", warm);
-  setCard("main", main);
-  setCard("after", after);
-
-  const areaTxt = areaEl.value ? `(${areaEl.value}) ` : "";
-  const lim = Number(actLimitEl.value || 3);
-  statusEl.textContent = `코스 생성 완료 ${areaTxt}— Activity ${selectedActs.size}/${lim} 반영됨.`;
-}
-
-function reroll(step){
-  const used = new Set(["warm","main","after"].filter(k=>k!==step).map(k=>current[k]?.id).filter(Boolean));
-  const picked = pickSpot(step, used);
-  current[step] = picked;
-  setCard(step, picked);
-  statusEl.textContent = "한 단계 다시 뽑았어.";
-}
-
-function courseText(){
-  const wantActs = [...selectedActs].map(actLabel);
-  const wants = wantActs.length ? `\n🎯 Want to do: ${wantActs.join(" / ")}` : "";
-  const w = current.warm ? `1) Warm-up: ${current.warm.name}` : "1) Warm-up: —";
-  const m = current.main ? `2) Main: ${current.main.name}` : "2) Main: —";
-  const a = current.after ? `3) After: ${current.after.name}` : "3) After: —";
-  return `🎲 인천 사운드 코스 룰렛\n${w}\n${m}\n${a}${wants}`;
-}
-
-async function copyCourse(){
-  const text = courseText();
-  try{
-    await navigator.clipboard.writeText(text);
-    statusEl.textContent = "코스 텍스트 복사 완료!";
-  }catch{
-    prompt("복사가 막혀있으면 여기서 복사:", text);
-  }
-}
-
-function resetUI(){
-  current = { warm:null, main:null, after:null };
-  setCard("warm", null);
-  setCard("main", null);
-  setCard("after", null);
-  statusEl.textContent = "Activity를 고르고 Spin을 눌러봐.";
-}
-
-// ===== Wire up =====
-document.getElementById("spin").addEventListener("click", spinAll);
-document.getElementById("copyCourse").addEventListener("click", copyCourse);
-document.getElementById("reset").addEventListener("click", resetUI);
-
-warmRerollBtn.addEventListener("click", () => reroll("warm"));
-mainRerollBtn.addEventListener("click", () => reroll("main"));
-afterRerollBtn.addEventListener("click", () => reroll("after"));
-
-actLimitEl.addEventListener("change", () => {
-  const limit = Number(actLimitEl.value || 3);
-  limitLabel.textContent = String(limit);
-  // limit 줄였을 때 초과분 자동 정리
-  while(selectedActs.size > limit){
-    selectedActs.delete([...selectedActs][selectedActs.size-1]);
-  }
-  renderActChips();
-  statusEl.textContent = `최대 선택 수 변경: ${selectedActs.size}/${limit}`;
-});
-
-clearActsBtn.addEventListener("click", clearActs);
-randomActsBtn.addEventListener("click", randomActs);
-
-// ===== Init =====
-buildAreaOptions();
-limitLabel.textContent = actLimitEl.value;
-renderActChips();
-resetUI();
-</script>
-</body>
-</html>
+      display:flex;
+      justify-conte
